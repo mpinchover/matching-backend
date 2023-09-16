@@ -1,14 +1,18 @@
 package requests
 
+import (
+	"matching/src/types/entities"
+)
+
 type UpdateTrackedQuestionRequest struct {
-	TrackedQuestion *TrackedQuestion
+	TrackedQuestion *entities.TrackedQuestion
 }
 
 type UpdateTrackedQuestionResponse struct {
 }
 
 type CreateTrackedQuestionRequest struct {
-	TrackedQuestion *TrackedQuestion
+	TrackedQuestion *entities.TrackedQuestion
 }
 
 type CreateTrackedQuestionResponse struct {

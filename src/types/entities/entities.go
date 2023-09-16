@@ -1,4 +1,4 @@
-package requests
+package entities
 
 type TrackedLike struct {
 	UUID       string

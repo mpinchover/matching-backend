@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"matching/src/controllers/matching"
+	"matching/src/types/entities"
 	"matching/src/types/requests"
 	"net/http"
 
@@ -58,7 +59,7 @@ func (h *Handler) CreateTrackedLike(c *gin.Context) (interface{}, error) {
 	return nil, h.MatchingController.CreateTrackedLike(c, req)
 }
 
-func (m *Handler) UpdateTrackedQuestion(q *requests.TrackedQuestion) error {
+func (m *Handler) UpdateTrackedQuestion(q *entities.TrackedQuestion) error {
 	return nil
 }
 
