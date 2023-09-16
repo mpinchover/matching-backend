@@ -1,6 +1,11 @@
 package matching
 
-import "go.uber.org/fx"
+import (
+	"matching/src/types/requests"
+
+	"github.com/gin-gonic/gin"
+	"go.uber.org/fx"
+)
 
 type MatchingController struct {
 }
@@ -11,4 +16,8 @@ type Params struct {
 
 func New(p Params) *MatchingController {
 	return &MatchingController{}
+}
+
+func (m *MatchingController) CreateTrackedLike(ctx *gin.Context, req *requests.CreateTrackedLikeRequest) error {
+	return nil
 }
