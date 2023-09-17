@@ -26,11 +26,19 @@ func New(p Params) *Handler {
 }
 
 // delete the room as well
-func (h *Handler) DeleteMatch(c *gin.Context) (interface{}, error) {
-	// add validation
+// do you need to create a match here? Or can you just rely on the room itself?
+// func (h *Handler) DeleteMatch(c *gin.Context) (interface{}, error) {
+// 	// add validation
 
-	return nil, nil
-}
+// 	req := &requests.DeleteMatchRequest{}
+
+// 	err := c.BindJSON(req)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	return nil, h.MatchingController.DeleteMatch(c, req)
+// }
 
 // deprioritize
 func (h *Handler) BlockUser(w http.ResponseWriter, r *http.Request) (interface{}, error) {

@@ -28,9 +28,3 @@ type Match struct {
 	RoomUUID string
 	// Members  []*Member
 }
-
-// type Member struct {
-// 	gorm.Model
-// 	UserUUID  string
-// 	MatchUUID string
-// }

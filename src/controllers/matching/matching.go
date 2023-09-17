@@ -23,6 +23,7 @@ func New(p Params) *MatchingController {
 		repo: p.Repo,
 	}
 }
+
 func (m *MatchingController) SaveTrackedQuestion(c *gin.Context, tq *entities.TrackedQuestion) error {
 	existingTrackedQuestion, err := m.repo.GetTrackedQuestionByUserAndQuestion(tq.UserUUID, tq.QuestionUUID)
 	if err != nil {
