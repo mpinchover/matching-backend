@@ -10,6 +10,7 @@ func (r *Repo) CreateTrackedLike(trackedLike *entities.TrackedLike) error {
 	return r.DB.Save(trackedLike).Error
 }
 
+// TODO - use the maps for more security
 func (r *Repo) UpdateTrackedLike(trackedLike *entities.TrackedLike) error {
 
 	// updates := map[string]interface{}{
@@ -23,7 +24,10 @@ func (r *Repo) UpdateTrackedLike(trackedLike *entities.TrackedLike) error {
 func (r *Repo) GetTrackedLikeByUserAndTarget(userUUID, targetUUID string) (*entities.TrackedLike, error) {
 	trackedLike := &records.TrackedLike{}
 	err := r.DB.Where("user_uuid = ?", userUUID).Where("target_uuid = ?", targetUUID).Find(&trackedLike).Error
-	return mappers.ToTrackedLikeEntity(trackedLike), err
+	if err != nil {
+		return nil, err
+	}
+	return mappers.ToTrackedLikeEntity(trackedLike), nil
 }
 
 func (r *Repo) UpdateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) error {
@@ -37,4 +41,13 @@ func (r *Repo) UpdateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) 
 func (r *Repo) CreateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) error {
 	tq := mappers.ToTrackedQuestionRecord(trackedQuestion)
 	return r.DB.Save(tq).Error
+}
+
+func (r *Repo) GetTrackedQuestionByUserAndQuestion(userUUID, targetUUID string) (*entities.TrackedQuestion, error) {
+	tq := &records.TrackedQuestion{}
+	err := r.DB.Where("user_uuid = ?", userUUID).Where("target_uuid = ?", targetUUID).Find(&tq).Error
+	if err != nil {
+		return nil, err
+	}
+	return mappers.ToTrackedQuestionEntity(tq), nil
 }

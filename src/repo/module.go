@@ -20,6 +20,7 @@ type IRepo interface {
 	UpdateTrackedLike(trackedLike *entities.TrackedLike) error
 	UpdateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) error
 	CreateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) error
+	GetTrackedQuestionByUserAndQuestion(userUUID, targetUUID string) (*entities.TrackedQuestion, error)
 }
 
 type Repo struct {

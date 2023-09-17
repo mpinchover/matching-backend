@@ -15,16 +15,35 @@ type MatchingController struct {
 type Params struct {
 	fx.In
 
-	repo *repo.Repo
+	Repo *repo.Repo
 }
 
 func New(p Params) *MatchingController {
 	return &MatchingController{
-		repo: p.repo,
+		repo: p.Repo,
 	}
 }
+func (m *MatchingController) SaveTrackedQuestion(c *gin.Context, tq *entities.TrackedQuestion) error {
+	existingTrackedQuestion, err := m.repo.GetTrackedQuestionByUserAndQuestion(tq.UserUUID, tq.QuestionUUID)
+	if err != nil {
+		return err
+	}
+	if existingTrackedQuestion == nil {
+		err = m.repo.CreateTrackedQuestion(tq)
+		if err != nil {
+			return err
+		}
+	} else {
+		err = m.repo.UpdateTrackedQuestion(tq)
+		if err != nil {
+			return err
+		}
 
-func (m *MatchingController) SaveTrackedLike(ctx *gin.Context, tl *entities.TrackedLike) error {
+	}
+	return nil
+}
+
+func (m *MatchingController) SaveTrackedLike(c *gin.Context, tl *entities.TrackedLike) error {
 	existingTrackedLike, err := m.repo.GetTrackedLikeByUserAndTarget(tl.UserUUID, tl.TargetUUID)
 	if err != nil {
 		return err

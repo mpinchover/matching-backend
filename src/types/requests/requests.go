@@ -4,18 +4,11 @@ import (
 	"matching/src/types/entities"
 )
 
-type UpdateTrackedQuestionRequest struct {
+type SaveTrackedQuestionRequest struct {
 	TrackedQuestion *entities.TrackedQuestion
 }
 
-type UpdateTrackedQuestionResponse struct {
-}
-
-type CreateTrackedQuestionRequest struct {
-	TrackedQuestion *entities.TrackedQuestion
-}
-
-type CreateTrackedQuestionResponse struct {
+type SaveTrackedQuestionResponse struct {
 }
 
 type DeleteMatchRequest struct {
@@ -38,11 +31,11 @@ type BlockUserResponse struct {
 
 // type CreateMatchResponse struct{}
 
-type CreateTrackedLikeRequest struct {
+type SaveTrackedLikeRequest struct {
 	TrackedLike *entities.TrackedLike
 }
 
-type CreateTrackedLikeResponse struct{}
+type SaveTrackedLikeResponse struct{}
 
 type GetQuestionsForMatchingRequest struct{}
 
