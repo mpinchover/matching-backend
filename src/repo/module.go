@@ -2,6 +2,7 @@ package repo
 
 import (
 	"fmt"
+	"matching/src/types/entities"
 	"os"
 
 	"gorm.io/driver/mysql"
@@ -13,7 +14,12 @@ const (
 	PAGINATION_ROOMS    = 10
 )
 
-type RepoInterface interface {
+type IRepo interface {
+	CreateTrackedLike(trackedLike *entities.TrackedLike) error
+	GetTrackedLikeByUserAndTarget(userUUID, targetUUID string) (*entities.TrackedLike, error)
+	UpdateTrackedLike(trackedLike *entities.TrackedLike) error
+	UpdateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) error
+	CreateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) error
 }
 
 type Repo struct {

@@ -40,13 +40,13 @@ func (h *Handler) BlockUser(w http.ResponseWriter, r *http.Request) (interface{}
 	return nil, nil
 }
 
-func (h *Handler) CreateMatch(c *gin.Context) (interface{}, error) {
-	// add validation
+// func (h *Handler) CreateMatch(c *gin.Context) (interface{}, error) {
+// 	// add validation
 
-	return nil, nil
-}
+// 	return nil, nil
+// }
 
-func (h *Handler) CreateTrackedLike(c *gin.Context) (interface{}, error) {
+func (h *Handler) SaveTrackedLike(c *gin.Context) (interface{}, error) {
 	// add validation
 
 	req := &requests.CreateTrackedLikeRequest{}
@@ -56,33 +56,9 @@ func (h *Handler) CreateTrackedLike(c *gin.Context) (interface{}, error) {
 		return nil, err
 	}
 
-	return nil, h.MatchingController.CreateTrackedLike(c, req)
+	return nil, h.MatchingController.SaveTrackedLike(c, req.TrackedLike)
 }
 
 func (m *Handler) UpdateTrackedQuestion(q *entities.TrackedQuestion) error {
 	return nil
 }
-
-// func (h *Handler) CreateRoom(w http.ResponseWriter, r *http.Request) (interface{}, error) {
-// 	// TODO - validate the create room request
-// 	req := &requests.CreateRoomRequest{}
-// 	if err := json.NewDecoder(r.Body).Decode(req); err != nil {
-// 		return nil, err
-// 	}
-
-// 	ctx := r.Context()
-
-// 	err := validation.ValidateRequest(req)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	room, err := h.ControlTowerCtrlr.CreateRoom(ctx, req.Members)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	return &requests.CreateRoomResponse{
-// 		Room: room,
-// 	}, nil
-// }

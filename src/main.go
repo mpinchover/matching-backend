@@ -29,7 +29,7 @@ type SetupRoutesParams struct {
 }
 
 func SetupRoutes(p SetupRoutesParams) {
-	p.Router.POST("create-tracked-like", route.NewRoute(p.Handler.CreateTrackedLike))
+	p.Router.POST("save-tracked-like", route.NewRoute(p.Handler.SaveTrackedLike))
 }
 
 func NewGinRouter(lc fx.Lifecycle) *gin.Engine {

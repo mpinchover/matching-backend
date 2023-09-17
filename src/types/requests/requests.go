@@ -38,7 +38,9 @@ type BlockUserResponse struct {
 
 // type CreateMatchResponse struct{}
 
-type CreateTrackedLikeRequest struct{}
+type CreateTrackedLikeRequest struct {
+	TrackedLike *entities.TrackedLike
+}
 
 type CreateTrackedLikeResponse struct{}
 

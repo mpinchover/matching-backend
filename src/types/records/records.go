@@ -12,7 +12,6 @@ type TrackedQuestion struct {
 	Category     string
 	UserUUID     string
 	QuestionUUID string
-	Liked        bool
 }
 
 type TrackedLike struct {
@@ -22,3 +21,16 @@ type TrackedLike struct {
 	TargetUUID string
 	Liked      bool
 }
+
+type Match struct {
+	gorm.Model
+	UUID     string
+	RoomUUID string
+	// Members  []*Member
+}
+
+// type Member struct {
+// 	gorm.Model
+// 	UserUUID  string
+// 	MatchUUID string
+// }

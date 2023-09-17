@@ -14,7 +14,6 @@ type TrackedQuestion struct {
 	Category     string
 	UserUUID     string
 	QuestionUUID string
-	Liked        bool
 }
 
 type Question struct {
