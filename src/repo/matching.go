@@ -53,7 +53,7 @@ func (r *Repo) GetTrackedQuestionByUserAndQuestion(userUUID, targetUUID string) 
 }
 
 // userUUIDsToFilterOut - original user uuid, blocked user uuids, currently matched user uuids, etc.
-func (r *Repo) GetCandidates(questionUUIDs []string, userUUIDsToFilterOut string) ([]*entities.Profile, error) {
+func (r *Repo) GetCandidateProfiles(questionUUIDs []string, userUUIDsToFilterOut string) ([]*entities.Profile, error) {
 	uuids := []string{}
 	query := `
 		select user_uuid from tracked_question

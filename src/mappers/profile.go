@@ -34,6 +34,7 @@ func ToProfileEntity(pr *records.Profile) *entities.Profile {
 		MaxDistanceMeters: pr.MaxDistanceMeters,
 		ProfileLat:        pr.ProfileLat,
 		ProfileLng:        pr.ProfileLng,
+		UserUUID:          pr.UserUUID,
 	}
 }
 
@@ -55,5 +56,6 @@ func ToProfileRecord(pr *entities.Profile) *records.Profile {
 		MaxDistanceMeters: pr.MaxDistanceMeters,
 		ProfileLat:        pr.ProfileLat,
 		ProfileLng:        pr.ProfileLng,
+		UserUUID:          pr.UserUUID,
 	}
 }

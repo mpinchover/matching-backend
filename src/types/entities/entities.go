@@ -25,13 +25,14 @@ type Question struct {
 
 type Profile struct {
 	Gender            string
-	GenderPreference  *string
+	GenderPreference  string
 	Age               int64
 	MinAgePreference  int64
 	MaxAgePreference  int64
 	MaxDistanceMeters int64
 	ProfileLat        float64
 	ProfileLng        float64
+	UserUUID          string
 }
 
 // type ProfileFilter struct {
