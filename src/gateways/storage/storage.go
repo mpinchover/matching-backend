@@ -23,7 +23,7 @@ func (c Creds) Retrieve(ctx context.Context) (aws.Credentials, error) {
 }
 
 type IStorage interface {
-	GetQuestionsFromStorage(key string) ([][]string, error)
+	GetQuestionsFromStorage(key string) (*dataframe.Dataframe, error)
 }
 
 type Storage struct {

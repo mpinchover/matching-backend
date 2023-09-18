@@ -51,3 +51,35 @@ func (r *Repo) GetTrackedQuestionByUserAndQuestion(userUUID, targetUUID string) 
 	}
 	return mappers.ToTrackedQuestionEntity(tq), nil
 }
+
+// userUUIDsToFilterOut - original user uuid, blocked user uuids, currently matched user uuids, etc.
+func (r *Repo) GetCandidates(questionUUIDs []string, userUUIDsToFilterOut string) ([]*entities.Profile, error) {
+	uuids := []string{}
+	query := `
+		select user_uuid from tracked_question
+		where question_uuid in (?) and user_uuid not in (?) and deleted_at is null
+		group by user_uuid
+		having count(question_uuid) >= ?
+	`
+
+	err := r.DB.Raw(query, questionUUIDs, userUUIDsToFilterOut, MINIMUM_QUESTION_MATCH_THRESHOLD).Scan(&uuids).Error
+	if err != nil {
+		return nil, err
+	}
+
+	profiles := []*records.Profile{}
+	err = r.DB.Where("uuid in ?", uuids).Find(&profiles).Error
+	if err != nil {
+		return nil, err
+	}
+	return mappers.ToProfileEntities(profiles), nil
+
+	// now query the profiles
+	/*
+				SELECT column1, column2, ...
+		FROM your_table
+		WHERE item IN ('item1', 'item2', 'item3', 'item4', ...)  -- Replace with your array of items
+		GROUP BY column1, column2, ...
+		HAVING COUNT(item) >= 3;
+	*/
+}

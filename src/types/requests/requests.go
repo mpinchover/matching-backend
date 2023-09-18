@@ -37,7 +37,9 @@ type SaveTrackedLikeRequest struct {
 
 type SaveTrackedLikeResponse struct{}
 
-type GetQuestionsForMatchingRequest struct{}
+type GetQuestionsForMatchingRequest struct {
+	Offset int64
+}
 
 type GetQuestionsForMatchingResponse struct{}
 

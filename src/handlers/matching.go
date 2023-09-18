@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"matching/src/controllers/discover"
 	"matching/src/controllers/matching"
 	"matching/src/types/requests"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/fx"
@@ -11,17 +13,20 @@ import (
 
 type Handler struct {
 	MatchingController *matching.MatchingController
+	DiscoverController *discover.DiscoverController
 }
 
 type Params struct {
 	fx.In
 
 	MatchingController *matching.MatchingController
+	DiscoverController *discover.DiscoverController
 }
 
 func New(p Params) *Handler {
 	return &Handler{
 		MatchingController: p.MatchingController,
+		DiscoverController: p.DiscoverController,
 	}
 }
 
@@ -66,7 +71,7 @@ func (h *Handler) SaveTrackedLike(c *gin.Context) (interface{}, error) {
 	return nil, h.MatchingController.SaveTrackedLike(c, req.TrackedLike)
 }
 
-func (m *Handler) SaveTrackedQuestion(c *gin.Context) (interface{}, error) {
+func (h *Handler) SaveTrackedQuestion(c *gin.Context) (interface{}, error) {
 	// validation
 
 	req := &requests.SaveTrackedQuestionRequest{}
@@ -76,5 +81,18 @@ func (m *Handler) SaveTrackedQuestion(c *gin.Context) (interface{}, error) {
 		return nil, err
 	}
 
-	return nil, m.MatchingController.SaveTrackedQuestion(c, req.TrackedQuestion)
+	return nil, h.MatchingController.SaveTrackedQuestion(c, req.TrackedQuestion)
+}
+
+func (h *Handler) GetQuestionsForMatching(c *gin.Context) (interface{}, error) {
+	
+	req := requests.GetQuestionsForMatchingRequest{}
+
+	err := c.BindJSON(req)
+	if err != nil {
+		return nil, err
+	}
+
+	// key should come from env
+	return h.DiscoverController.GetQuestionsForMatching(req.Offset, os.Getenv("key"))
 }

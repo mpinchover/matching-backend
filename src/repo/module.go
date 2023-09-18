@@ -10,8 +10,9 @@ import (
 )
 
 const (
-	PAGINATION_MESSAGES = 20
-	PAGINATION_ROOMS    = 10
+	PAGINATION_MESSAGES              = 20
+	PAGINATION_ROOMS                 = 10
+	MINIMUM_QUESTION_MATCH_THRESHOLD = 10
 )
 
 type IRepo interface {

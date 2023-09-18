@@ -22,9 +22,22 @@ type TrackedLike struct {
 	Liked      bool
 }
 
+
 type Match struct {
 	gorm.Model
 	UUID     string
 	RoomUUID string
 	// Members  []*Member
+}
+
+type Profile struct {
+	gorm.Model
+	Gender            string
+	GenderPreference  *string
+	Age               int64
+	MinAgePreference  int64
+	MaxAgePreference  int64
+	MaxDistanceMeters int64
+	ProfileLat        float64
+	ProfileLng        float64
 }

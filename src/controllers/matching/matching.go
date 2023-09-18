@@ -1,6 +1,7 @@
 package matching
 
 import (
+	"matching/src/gateways/storage"
 	"matching/src/repo"
 	"matching/src/types/entities"
 
@@ -9,18 +10,21 @@ import (
 )
 
 type MatchingController struct {
-	repo repo.IRepo
+	repo    repo.IRepo
+	storage storage.IStorage
 }
 
 type Params struct {
 	fx.In
 
-	Repo *repo.Repo
+	Repo    *repo.Repo
+	Storage *storage.Storage
 }
 
 func New(p Params) *MatchingController {
 	return &MatchingController{
-		repo: p.Repo,
+		repo:    p.Repo,
+		storage: p.Storage,
 	}
 }
 
@@ -39,8 +43,12 @@ func (m *MatchingController) SaveTrackedQuestion(c *gin.Context, tq *entities.Tr
 		if err != nil {
 			return err
 		}
-
 	}
+	// now kick off the process of matching by questions here.
+	// check only for users who have answered the THRESHOLD amount of questions
+	go func(){
+		
+	}()
 	return nil
 }
 
