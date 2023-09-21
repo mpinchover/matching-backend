@@ -61,7 +61,7 @@ func (r *Repo) GetTrackedQuestionByUserAndQuestion(userUUID, questionUUID string
 
 // userUUIDsToFilterOut - original user uuid, blocked user uuids, currently matched user uuids, etc.
 // check first to make sure that theyhave even answered enough questions
-func (r *Repo) GetCandidateProfiles(questionUUIDs []string, userUUIDsToFilterOut []string, minRequiredMatchThreshold int) ([]*entities.Profile, error) {
+func (r *Repo) GetCandidateProfilesByMatchedQuestions(questionUUIDs []string, userUUIDsToFilterOut []string, minRequiredMatchThreshold int) ([]*entities.Profile, error) {
 	uuids := []string{}
 	params := []interface{}{}
 	params = append(params, questionUUIDs)

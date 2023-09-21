@@ -247,38 +247,38 @@ func (s *RepoSuite) TestGetCandidateProfiles() {
 	}
 
 	userAnsweredQuestions := []string{q1UUID, q2UUID, q3UUID, q4UUID, q5UUID}
-	profiles, err := s.repo.GetCandidateProfiles(userAnsweredQuestions, []string{user.UserUUID}, 3)
+	profiles, err := s.repo.GetCandidateProfilesByMatchedQuestions(userAnsweredQuestions, []string{user.UserUUID}, 3)
 	s.NoError(err)
 	s.NotNil(profiles)
 	s.Len(profiles, 1)
 
 	userAnsweredQuestions = []string{q1UUID, q2UUID, q3UUID, q4UUID, q5UUID}
-	profiles, err = s.repo.GetCandidateProfiles(userAnsweredQuestions, []string{user.UserUUID}, 2)
+	profiles, err = s.repo.GetCandidateProfilesByMatchedQuestions(userAnsweredQuestions, []string{user.UserUUID}, 2)
 	s.NoError(err)
 	s.NotNil(profiles)
 	s.Len(profiles, 2)
 
 	userAnsweredQuestions = []string{q1UUID, q2UUID, q3UUID, q4UUID, q5UUID}
-	profiles, err = s.repo.GetCandidateProfiles(userAnsweredQuestions, []string{user.UserUUID}, 4)
+	profiles, err = s.repo.GetCandidateProfilesByMatchedQuestions(userAnsweredQuestions, []string{user.UserUUID}, 4)
 	s.NoError(err)
 	s.NotNil(profiles)
 	s.Len(profiles, 1)
 
 	userAnsweredQuestions = []string{q1UUID, q2UUID, q3UUID, q4UUID, q5UUID}
-	profiles, err = s.repo.GetCandidateProfiles(userAnsweredQuestions, []string{user.UserUUID}, 5)
+	profiles, err = s.repo.GetCandidateProfilesByMatchedQuestions(userAnsweredQuestions, []string{user.UserUUID}, 5)
 	s.NoError(err)
 	s.Nil(profiles)
 	s.Len(profiles, 0)
 
 	userAnsweredQuestions = []string{q1UUID, q2UUID, q3UUID, q4UUID, q5UUID}
-	profiles, err = s.repo.GetCandidateProfiles(userAnsweredQuestions, nil, 0)
+	profiles, err = s.repo.GetCandidateProfilesByMatchedQuestions(userAnsweredQuestions, nil, 0)
 	s.NoError(err)
 	s.NotNil(profiles)
 	s.Len(profiles, 3)
 
 	// should still return the user profile
 	userAnsweredQuestions = []string{q1UUID, q2UUID, q3UUID, q4UUID, q5UUID}
-	profiles, err = s.repo.GetCandidateProfiles(userAnsweredQuestions, nil, 5)
+	profiles, err = s.repo.GetCandidateProfilesByMatchedQuestions(userAnsweredQuestions, nil, 5)
 	s.NoError(err)
 	s.NotNil(profiles)
 	s.Len(profiles, 1)
