@@ -35,6 +35,11 @@ type Profile struct {
 	UserUUID          string
 }
 
+type MatchesForUserResult struct {
+	Candidates []*Profile
+	AbortCode  string
+}
+
 // type ProfileFilter struct {
 // 	ProfileGender             *string
 // 	ProfileGenderPreference   *string

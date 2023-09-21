@@ -22,6 +22,8 @@ type IRepo interface {
 	UpdateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) error
 	CreateTrackedQuestion(trackedQuestion *entities.TrackedQuestion) error
 	GetTrackedQuestionByUserAndQuestion(userUUID, targetUUID string) (*entities.TrackedQuestion, error)
+	GetCandidateProfilesByMatchedQuestions(questionUUIDs []string, userUUIDsToFilterOut []string, minRequiredMatchThreshold int) ([]*entities.Profile, error)
+	GetLikedTrackedQuestionsByUser(userUUID string) ([]*entities.TrackedQuestion, error)
 }
 
 type Repo struct {

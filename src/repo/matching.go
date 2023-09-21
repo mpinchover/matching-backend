@@ -59,6 +59,18 @@ func (r *Repo) GetTrackedQuestionByUserAndQuestion(userUUID, questionUUID string
 	return mappers.ToTrackedQuestionEntity(tq), nil
 }
 
+func (r *Repo) GetLikedTrackedQuestionsByUser(userUUID string) ([]*entities.TrackedQuestion, error) {
+	tqs := []*records.TrackedQuestion{}
+	out := r.DB.Where("user_uuid = ?", userUUID).Find(&tqs)
+	if out.Error != nil {
+		return nil, out.Error
+	}
+	if out.RowsAffected == 0 {
+		return nil, nil
+	}
+	return mappers.ToTrackedQuestionEntities(tqs), nil
+}
+
 // userUUIDsToFilterOut - original user uuid, blocked user uuids, currently matched user uuids, etc.
 // check first to make sure that theyhave even answered enough questions
 func (r *Repo) GetCandidateProfilesByMatchedQuestions(questionUUIDs []string, userUUIDsToFilterOut []string, minRequiredMatchThreshold int) ([]*entities.Profile, error) {

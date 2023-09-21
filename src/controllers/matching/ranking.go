@@ -1,95 +1,43 @@
 package matching
 
-// func (m *MatchingController) RankCandidates(userUUID string, candidateUUID string) (*matchingTypes.Profile, error) {
-// 	// get commonly like questions between user and candidate
+import (
+	"matching/src/types/entities"
+	"matching/src/types/enums"
+)
 
-// 	commonLikedQuestions, err := m.GetCommonLikedQuestions(userUUID, candidateUUID)
-// 	if err != nil {
-// 		return nil, err
-// 	}
+const (
+	MIN_REQUIRED_QUESTIONS_ANSWERED = 30
+)
 
-// 	// TODO - get better at determining this. Maybe just need really focused questions?
-// 	if len(commonLikedQuestions) < 10 {
-// 		return nil, nil
-// 	}
+func (m *MatchingController) FindCompatibleCandidates(trackedQuestion *entities.TrackedQuestion) (*entities.MatchesForUserResult, error) {
+	result := &entities.MatchesForUserResult{}
 
-// 	// show the candidate because it's a potential match
+	// get questions this user has liked
+	// todo - validate a user uuid exists
+	likedQuestionsByUser, err := m.repo.GetLikedTrackedQuestionsByUser(trackedQuestion.UserUUID)
+	if err != nil {
+		return nil, err
+	}
+	if len(likedQuestionsByUser) < MIN_REQUIRED_QUESTIONS_ANSWERED {
+		result.AbortCode = enums.ABORT_CODE_BELOW_MIN_REQUIRED_QUESTIONS_ANSWERED.String()
+		return result, nil
+	}
 
-// 	// return the candidate
-// 	return &matchingTypes.Profile{
-// 		UUID: candidateUUID,
-// 	}, nil
-// }
+	uuids := make([]string, len(likedQuestionsByUser))
+	for i, tq := range likedQuestionsByUser {
+		uuids[i] = tq.UUID
+	}
 
-// func (m *MatchingController) GetCommonLikedQuestions(userUUID string, candidateUUID string) ([]*matchingTypes.Question, error) {
-// 	/*
-// 		SELECT column1, column2, ...
-// 	FROM your_table
-// 	WHERE item IN ('item1', 'item2', 'item3', 'item4', ...)  -- Replace with your array of items
-// 	GROUP BY column1, column2, ...
-// 	HAVING COUNT(item) >= 3;
-
-// 	*/
-// 	userTrackedQuestions, err := m.Repo.GetLikedTrackedQuestionsByUserUUID(userUUID)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	uTrackedQuestions := make([]*matchingTypes.TrackedQuestion, len(userTrackedQuestions))
-// 	for i, q := range userTrackedQuestions {
-// 		reqQuestion := &matchingTypes.TrackedQuestion{
-// 			Text:         q.Text,
-// 			UUID:         q.UUID,
-// 			Category:     q.Category,
-// 			Index:        q.Index,
-// 			Liked:        q.Liked,
-// 			QuestionUUID: q.QuestionUUID,
-// 			UserUUID:     q.UserUUID,
-// 		}
-// 		uTrackedQuestions[i] = reqQuestion
-// 	}
-
-// 	// TODO - convert to requests
-// 	candidateTrackedQuestions, err := m.Repo.GetLikedTrackedQuestionsByUserUUID(candidateUUID)
-// 	cTrackedQuestions := make([]*matchingTypes.TrackedQuestion, len(candidateTrackedQuestions))
-// 	for i, q := range candidateTrackedQuestions {
-// 		reqQuestion := &matchingTypes.TrackedQuestion{
-// 			Text:         q.Text,
-// 			UUID:         q.UUID,
-// 			Category:     q.Category,
-// 			Index:        q.Index,
-// 			Liked:        q.Liked,
-// 			QuestionUUID: q.QuestionUUID,
-// 			UserUUID:     q.UserUUID,
-// 		}
-// 		cTrackedQuestions[i] = reqQuestion
-// 	}
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	candidateQuestionsMap := map[string]*matchingTypes.TrackedQuestion{}
-// 	for _, q := range cTrackedQuestions {
-// 		candidateQuestionsMap[q.UUID] = q
-// 	}
-
-// 	commonLikes := []*matchingTypes.Question{}
-// 	for _, q := range userTrackedQuestions {
-// 		if _, ok := candidateQuestionsMap[q.UUID]; !ok {
-// 			continue
-// 		}
-
-// 		// start if with just things people like
-// 		if q.Liked && q.Liked == candidateQuestionsMap[q.UUID].Liked {
-// 			question := &matchingTypes.Question{
-// 				UUID:     q.QuestionUUID,
-// 				Index:    q.Index,
-// 				Text:     q.Text,
-// 				Category: q.Category,
-// 			}
-// 			commonLikes = append(commonLikes, question)
-// 		}
-// 	}
-
-// 	return commonLikes, nil
-// }
+	// TODO - make a filter so you can also filter by matching prefs as well
+	userUUIDSToFilterOut := []string{}
+	candidates, err := m.repo.GetCandidateProfilesByMatchedQuestions(uuids, userUUIDSToFilterOut, 30)
+	if err != nil {
+		return nil, err
+	}
+	if len(candidates) == 0 {
+		result.AbortCode = enums.ABORT_CODE_NO_MATCHING_CANDIDATES.String()
+		return result, nil
+	}
+	result.Candidates = candidates
+	return result, nil
+}
