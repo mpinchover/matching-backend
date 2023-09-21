@@ -24,6 +24,7 @@ type IRepo interface {
 	GetTrackedQuestionByUserAndQuestion(userUUID, targetUUID string) (*entities.TrackedQuestion, error)
 	GetCandidateProfilesByMatchedQuestions(questionUUIDs []string, userUUIDsToFilterOut []string, minRequiredMatchThreshold int) ([]*entities.Profile, error)
 	GetLikedTrackedQuestionsByUser(userUUID string) ([]*entities.TrackedQuestion, error)
+	CreateMatch(match *entities.Match) error
 }
 
 type Repo struct {

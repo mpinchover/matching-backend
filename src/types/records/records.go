@@ -31,11 +31,18 @@ type TrackedLike struct {
 	Liked      bool
 }
 
-// maybe just use rooms in messaging server
 type Match struct {
 	gorm.Model
-	UUID     string
-	RoomUUID string
+	UUID         string
+	RoomUUID     string
+	Participants []*Participant
+}
+
+type Participant struct {
+	gorm.Model
+	UserUUID  string
+	MatchUUID string
+	MatchID   uint
 }
 
 type Profile struct {

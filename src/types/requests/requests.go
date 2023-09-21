@@ -9,6 +9,7 @@ type SaveTrackedQuestionRequest struct {
 }
 
 type SaveTrackedQuestionResponse struct {
+	Candidates []*entities.Profile
 }
 
 type DeleteMatchRequest struct {
@@ -35,7 +36,9 @@ type SaveTrackedLikeRequest struct {
 	TrackedLike *entities.TrackedLike
 }
 
-type SaveTrackedLikeResponse struct{}
+type SaveTrackedLikeResponse struct {
+	Match *entities.Match
+}
 
 type GetQuestionsForMatchingRequest struct {
 	Offset int64

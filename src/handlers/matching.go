@@ -68,7 +68,7 @@ func (h *Handler) SaveTrackedLike(c *gin.Context) (interface{}, error) {
 		return nil, err
 	}
 
-	return nil, h.MatchingController.SaveTrackedLike(c, req.TrackedLike)
+	return h.MatchingController.SaveTrackedLike(c, req.TrackedLike)
 }
 
 func (h *Handler) SaveTrackedQuestion(c *gin.Context) (interface{}, error) {
@@ -81,11 +81,11 @@ func (h *Handler) SaveTrackedQuestion(c *gin.Context) (interface{}, error) {
 		return nil, err
 	}
 
-	return nil, h.MatchingController.SaveTrackedQuestion(c, req.TrackedQuestion)
+	return h.MatchingController.SaveTrackedQuestion(c, req.TrackedQuestion)
 }
 
 func (h *Handler) GetQuestionsForMatching(c *gin.Context) (interface{}, error) {
-	
+
 	req := requests.GetQuestionsForMatchingRequest{}
 
 	err := c.BindJSON(req)

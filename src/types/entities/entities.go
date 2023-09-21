@@ -40,6 +40,18 @@ type MatchesForUserResult struct {
 	AbortCode  string
 }
 
+type Match struct {
+	UUID         string
+	RoomUUID     string
+	Participants []*Participant
+}
+
+type Participant struct {
+	UserUUID  string
+	MatchUUID string
+	MatchID   uint
+}
+
 // type ProfileFilter struct {
 // 	ProfileGender             *string
 // 	ProfileGenderPreference   *string
