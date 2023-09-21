@@ -7,22 +7,22 @@ import (
 
 func ToTrackedQuestionRecord(q *entities.TrackedQuestion) *records.TrackedQuestion {
 	return &records.TrackedQuestion{
-		UUID:         q.UUID,
-		UserUUID:     q.UserUUID,
-		Text:         q.Text,
-		Index:        q.Index,
-		Category:     q.Category,
-		QuestionUUID: q.QuestionUUID,
+		UUID:          q.UUID,
+		UserUUID:      q.UserUUID,
+		QuestionText:  q.QuestionText,
+		QuestionIndex: q.QuestionIndex,
+		Category:      q.Category,
+		QuestionUUID:  q.QuestionUUID,
 	}
 }
 
 func ToTrackedQuestionEntity(q *records.TrackedQuestion) *entities.TrackedQuestion {
 	return &entities.TrackedQuestion{
-		UUID:         q.UUID,
-		UserUUID:     q.UserUUID,
-		Text:         q.Text,
-		Index:        q.Index,
-		Category:     q.Category,
-		QuestionUUID: q.QuestionUUID,
+		UUID:          q.UUID,
+		UserUUID:      q.UserUUID,
+		QuestionText:  q.QuestionText,
+		QuestionIndex: q.QuestionIndex,
+		Category:      q.Category,
+		QuestionUUID:  q.QuestionUUID,
 	}
 }

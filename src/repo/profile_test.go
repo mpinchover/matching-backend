@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (s *RepoSuite) TestGetCandidateProfiles() {
+func (s *RepoSuite) TestGetProfiles() {
 	defer s.repo.DB.Rollback()
 
 	// create a profile

@@ -8,12 +8,12 @@ type TrackedLike struct {
 }
 
 type TrackedQuestion struct {
-	UUID         string
-	Text         string
-	Index        int64
-	Category     string
-	UserUUID     string
-	QuestionUUID string
+	UUID          string
+	QuestionText  string
+	QuestionIndex int64
+	Category      string
+	UserUUID      string
+	QuestionUUID  string
 }
 
 type Question struct {

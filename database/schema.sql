@@ -23,11 +23,11 @@ CREATE TABLE tracked_questions (
     deleted_at timestamp,
 
     uuid VARCHAR(50) UNIQUE NOT NULL,
-    questionText TEXT NOT NULL,
-    questionIndex int NOT NULL,
+    question_text TEXT NOT NULL,
+    question_index int NOT NULL,
     category TEXT NOT NULL,
-    user_uuid  VARCHAR(50) UNIQUE NOT NULL,
-    question_uuid VARCHAR(50) UNIQUE NOT NULL,
+    user_uuid  VARCHAR(50) NOT NULL,
+    question_uuid VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
@@ -38,9 +38,9 @@ CREATE TABLE tracked_likes (
     deleted_at timestamp,
 
     uuid VARCHAR(50) UNIQUE NOT NULL,
-    user_uuid VARCHAR(50) UNIQUE NOT NULL,
-    target_uuid VARCHAR(50) UNIQUE NOT NULL,
-    liked boolean UNIQUE NOT NULL,
+    user_uuid VARCHAR(50) NOT NULL,
+    target_uuid VARCHAR(50) NOT NULL,
+    liked boolean NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
@@ -51,7 +51,7 @@ CREATE TABLE matches (
     deleted_at timestamp,
 
     uuid VARCHAR(50) UNIQUE NOT NULL,
-    room_uuid VARCHAR(50) UNIQUE NOT NULL,
+    room_uuid VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=INNODB;
 

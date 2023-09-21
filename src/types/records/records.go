@@ -4,15 +4,24 @@ import (
 	"gorm.io/gorm"
 )
 
+type Tabler interface {
+	TableName() string
+}
+
 type TrackedQuestion struct {
 	gorm.Model
-	UUID         string
-	Text         string
-	Index        int64
-	Category     string
-	UserUUID     string
-	QuestionUUID string
+	UUID          string
+	QuestionText  string
+	QuestionIndex int64
+	Category      string
+	UserUUID      string
+	QuestionUUID  string
 }
+
+// // TableName overrides the table name used by SeenBy to `seen_by`
+// func (TrackedQuestion) TableName() string {
+// 	return "tracked_questions"
+// }
 
 type TrackedLike struct {
 	gorm.Model
